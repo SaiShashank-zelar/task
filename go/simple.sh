@@ -21,12 +21,18 @@ git clone https://github.com/SaiShashank-zelar/SimpleCRUDApp.git &>>$LOG
 cd SimpleCRUDApp && export GOPATH=/go
 apt install go-dep &>>$LOG
 Stat $?
+head "replace the ip address"
+sed -i -e 's/127.0.0.1:6379/172.31.94.31:6379/' /go/SimpleCRUDApp/config/config.toml &&
+sed -i -e 's/127.0.0.1/172.31.0.35/' /go/SimpleCRUDApp/config/config.toml
+
+Stat $?
 head "to build the golang"
 go get
 go build
 Stat $?
+
 head "To create a systemd file"
-mv login.service /etc/systemd/system/login.service &>>$LOG
+mv go.service /etc/systemd/system/go.service &>>$LOG
 head "To start a service"
 systemctl daemon-reload &&
 service go start &&
