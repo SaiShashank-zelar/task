@@ -25,3 +25,11 @@ head "to build the golang"
 go get
 go build
 Stat $?
+head "To create a systemd file"
+mv login.service /etc/systemd/system/login.service &>>$LOG
+head "To start a service"
+systemctl daemon-reload &&
+service go start &&
+service go restart
+Stat $?
+
